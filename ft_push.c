@@ -6,7 +6,7 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 19:14:10 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/22 18:14:51 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:38:35 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void pa(t_list **head_a, t_list **head_b)
 
 	ft_printf("pa\n");
 }
-
 void pb(t_list **head_a, t_list **head_b)
 {
 	if (*head_a == NULL)

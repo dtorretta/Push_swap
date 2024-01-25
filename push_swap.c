@@ -6,14 +6,34 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:37:00 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/25 16:51:48 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:21:25 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
 //8 4 10 1 7 6 5  //segmentation fault in 7
+
+static int is_sorted(t_list **stack)
+{
+	t_list *temp = *stack;
+	
+	while(temp && temp->next) 
+		{
+			if(temp->value > temp->next->value) //not sorted
+				return(0);
+			else //sorted
+			{
+				temp = temp->next;
+				if(!temp->next)
+				{
+					free_stack(stack); //*deberia liberar stack b?
+					break;
+				}
+			}
+		}
+	return(1);
+}
 static int find_min_position(t_list *head)
 {
 	int min_value = head->value;
@@ -31,6 +51,88 @@ static int find_min_position(t_list *head)
 		count++;
 	}
 	return (min_position);
+}
+void sort_3(t_list **head)
+{
+	int min_position;
+	t_list *first;
+	t_list *second;
+	t_list *third;
+	
+	min_position = find_min_position(*head);
+	first = *head;
+	second = first->next;
+	third = second->next;
+	if(min_position == 1)
+	{
+		ra(head);
+		sa(head);
+		rra(head);
+	}
+	else if(min_position == 2)
+	{
+		if(first->value < third->value)
+			sa(head);
+		else
+			ra(head); 
+	}
+	else if(min_position == 3)
+	{
+		if(first->value < second->value)
+			rra(head);
+		else
+		{	
+			sa(head);
+			rra(head);
+		} 
+	}
+}
+void sort_4(t_list **head_a, t_list **head_b)
+{
+	int min_position;
+		
+	min_position = find_min_position(*head_a);
+	
+	if(min_position == 2)
+		sa(head_a);
+	else if(min_position == 3)
+	{
+		ra(head_a);
+		ra(head_a);
+	}
+	else if(min_position == 4)
+		rra(head_a);
+	if(is_sorted(head_a)) //sorted
+		return;
+	pb(head_a, head_b);//si no esta ordenado sigue
+	sort_3(head_a);
+	pa(head_a, head_b);
+}
+void sort_5(t_list **head_a, t_list **head_b)
+{
+	int min_position;
+		
+	min_position = find_min_position(*head_a);
+	
+	if(min_position == 2)
+		sa(head_a);
+	else if(min_position == 3)
+	{
+		ra(head_a);
+		ra(head_a);
+	}
+	else if(min_position == 4)
+	{
+		rra(head_a);
+		rra(head_a);
+	}
+	else if(min_position == 5)
+		rra(head_a);
+	if(is_sorted(head_a)) //sorted
+		return;
+	pb(head_a, head_b);//si no esta ordenado sigue
+	sort_4(head_a, head_b);
+	pa(head_a, head_b);
 }
 void ft_push_swap(t_list **head_a, t_list **head_b)
 {
@@ -66,47 +168,28 @@ void ft_push_swap(t_list **head_a, t_list **head_b)
 	while(ft_lstsize(*head_b) > 0)  //devolver todo a A
 		pa(head_a, head_b);
 }
-static void	ft_sort(t_list **stack_a, t_list **stack_b) //puedo ponerle static int y solo return???
-{
+static void	ft_sort(t_list **stack_a, t_list **stack_b)
+{//puedo ponerle static int y solo return???
 	long size;
 
 	size = ft_lstsize(*stack_a);
 	if(size == 1)
 	{
-		ft_printf("only one element\n");
+		ft_printf("only one element\n");//borrar
 		return;
 	}
+	else if(size == 2)
+		sa(stack_a);
+	else if(size == 3)
+		sort_3(stack_a);
+	else if(size == 4)
+		sort_4(stack_a, stack_b);
+	else if(size == 5)
+		sort_5(stack_a, stack_b);
 	else 
-		ft_push_swap(stack_a, stack_b); //crear para 3 casos / para 5 casos y etc
+		ft_push_swap(stack_a, stack_b);
 }
 
-static int is_sorted(t_list **stack)
-{
-	t_list *temp = *stack;
-	
-	while(temp && temp->next) 
-		{
-			if(temp->value > temp->next->value) // **ATOI
-			{
-				//ft_printf("not sorted\n"); //borrar
-				break;
-			}
-			else
-			{
-				//ft_printf("temp->value %d\n", temp->value); //borrar
-				//ft_printf("temp->next->value %d\n", temp->next->value); //borrar
-				temp = temp->next;
-				if(!temp->next)
-				{
-					//ft_printf("sorted\n"); //borrar
-					free_stack(stack);
-					return(0);
-				}
-			}
-		}
-		//ft_printf("out the loop\n"); //borrar. cuando sale del loop ya esta listo para crear el stack b y empezar a ordenar.
-		return(1);
-}
 static void	init_stack(t_list **stack, int argc, char **argv)
 {
 	char	**args;
@@ -150,7 +233,7 @@ int main(int argc, char **argv)
 	*stack_a = NULL;
 
 	init_stack(stack_a, argc, argv); //inicializar stack A
-	if(!is_sorted(stack_a)) //check si ya esta en orden
+	if(is_sorted(stack_a)) //check si ya esta en orden
 		return(EXIT_SUCCESS);
 		
 	stack_b = (t_list **)malloc(sizeof(t_list)); //creacion stack B

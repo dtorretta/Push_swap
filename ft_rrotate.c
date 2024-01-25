@@ -6,7 +6,7 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:55:12 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/25 16:25:02 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:38:54 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void rra(t_list **head)
 	ft_lstadd_front(head, newfirst);
 	ft_printf("rra\n");
 }
-
-void rrb (t_list **head)
+void rrb(t_list **head)
 {
 	if (*head == NULL || (*head)->next == NULL)
 		return;
@@ -45,7 +44,6 @@ void rrb (t_list **head)
 	ft_lstadd_front(head, newfirst);
 	ft_printf("rrb\n");
 }
-
 void rrr(t_list **head_a, t_list **head_b)
 {
 	if (*head_a == NULL || (*head_a)->next == NULL || *head_b == NULL || (*head_b)->next == NULL)
