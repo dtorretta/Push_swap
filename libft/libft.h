@@ -6,7 +6,7 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:37:08 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/24 15:37:58 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:27:11 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void				ft_putnbr_fd(int n, int fd);
 typedef struct s_list
 {
 	int				value;
+	int				index;
 	struct s_list	*next;
 	struct s_list	*prev;
 }					t_list;

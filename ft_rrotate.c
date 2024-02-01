@@ -6,16 +6,22 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:55:12 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/25 17:38:54 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:04:03 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+// t_list	*get_stack_before_bottom(t_list *stack)
+// {
+// 	while (stack && stack->next && stack->next->next != NULL)
+// 		stack = stack->next;
+// 	return (stack);
+// }
+
 void rra(t_list **head)
 {
-	//ft_printf("teeeeest\n");//borrar
-	if (*head == NULL || (*head)->next == NULL)
+	if (*head == NULL || (*head)->next == NULL || ft_lstsize(*head) < 2)
 		return;
 
 	t_list *newfirst;
@@ -27,9 +33,26 @@ void rra(t_list **head)
 	newfirst = ft_lstlast(*head);
 	newlast = newfirst->prev;
 	newlast->next = NULL;
+	//newlast = get_stack_before_bottom(*head);
 	ft_lstadd_front(head, newfirst);
+
 	ft_printf("rra\n");
 }
+// void rrb(t_list **head)
+// {
+// 	if (*head == NULL || (*head)->next == NULL)
+// 		return;
+
+// 	t_list *newfirst;
+// 	t_list *newlast;
+	
+// 	newfirst = ft_lstlast(*head);
+// 	newlast = get_stack_before_bottom(*head);
+// 	//newlast = newfirst->prev;
+// 	ft_lstadd_front(head, newfirst);
+// 	newlast->next = NULL;
+// 	ft_printf("rrb\n");
+// }
 void rrb(t_list **head)
 {
 	if (*head == NULL || (*head)->next == NULL)
@@ -38,10 +61,12 @@ void rrb(t_list **head)
 	t_list *newfirst;
 	t_list *newlast;
 	
+	
 	newfirst = ft_lstlast(*head);
 	newlast = newfirst->prev;
 	newlast->next = NULL;
 	ft_lstadd_front(head, newfirst);
+
 	ft_printf("rrb\n");
 }
 void rrr(t_list **head_a, t_list **head_b)

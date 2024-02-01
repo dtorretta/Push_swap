@@ -1,9 +1,9 @@
-NAME = push_swap.a
+NAME = pushswap.a
 
 LIBFT	= libft.a
 LIBFTDIR	= ./libft
 
-SRCS = push_swap.c ft_swap.c ft_rotate.c ft_rrotate.c ft_push.c errors.c
+SRCS = push_swap.c ft_swap.c ft_rotate.c ft_rrotate.c ft_push.c errors.c big_sort.c
 OBJS = $(SRCS:.c=.o)
 
 INCS = -I push_swap.h
@@ -20,7 +20,7 @@ makelib:
 	mv $(LIBFT) $(NAME)
 
 $(NAME): makelib $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+	$(AR) -g $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)

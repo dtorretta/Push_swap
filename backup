@@ -1,0 +1,79 @@
+#include "push_swap.h"
+
+void ft_big_sort(t_list **head_a, t_list **head_b)
+{
+	int min_position;
+	int min_position_down;
+	int max_position;
+	int i;
+	long size_a;
+	long size_b;
+	long total_a;
+	long total_b;
+	int substack;
+	
+	size_a = ft_lstsize(*head_a);
+	total_a = size_a;
+	while(size_a > 0)
+	{
+		substack = 1;
+		while(substack <= 10) //buscar grupos de 0 a 10
+		{
+			min_position = find_min_position(*head_a); //busco el numero mas chico y su position empezando de arriba
+			min_position_down = rev_find_min_position(*head_a); //empezando de abajo
+			
+			if (min_position <= min_position_down) //si minimo esta en la primera mitad 
+			{
+				i = 1;
+				while(i < min_position)
+				{
+					ra(head_a);
+					i++;
+				}
+			}
+			else //si minimo esta en la segunda mitad
+			{
+				i = min_position_down;
+				while(i > 0)
+				{
+					rra(head_a); 
+					i--;
+				}
+			}
+			pb(head_a, head_b);
+			ft_printf("%d\n", (*head_b)->value);
+			total_a --;
+			substack ++;
+		}
+		//ACA DEBERIA ORDENAR B
+		size_b = ft_lstsize(*head_b);
+		total_b = size_b;
+		while(total_b > 0)
+		{
+			max_position = find_max_position(*head_b);
+			if (max_position <= (size_b/2 + 1)) //si maximo esta en la primera mitad
+			{
+				i = 1;
+				while(i < max_position)
+				{
+					rb(head_b);
+					i++;
+				}
+			}
+			else //si maximo esta en la segunda mitad
+			{
+				i = ft_lstsize(*head_b);
+				while(i >= max_position)
+				{
+					rrb(head_b); 
+					i--;
+				}
+			}
+			pa(head_a, head_b); 
+			total_b--;
+		}
+	}
+}
+
+
+85 91 26 70 89 88 25 19 93 64 14 60 7 72 39 63 30 84 94 11 2 17 67 3 45 59 75 62 58 48 52 81 97 95 77 53 10 79 87 90 99 78 83 73 20 12 49 1 44 71 35 5 80 9 23 66 32 41 8 42 38 61 57 40 36 51 18 37 29 15 13 16 68 31 55 27 47 34 4 50 22 74 21 69 98 65 92 6 56 46 54 24 43 82 96 28 100 76 33 86 

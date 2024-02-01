@@ -6,7 +6,7 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:37:00 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/25 18:21:25 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/01 17:33:10 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,25 @@ static int is_sorted(t_list **stack)
 		}
 	return(1);
 }
-static int find_min_position(t_list *head)
+// int find_max_position(t_list *head)
+// {
+// 	int max_value = head->value;
+// 	int max_position = 1;
+// 	int count = 1;
+
+// 	while (head != NULL)
+// 	{
+// 		if (head->value > max_value)
+// 		{
+// 			max_value = head->value;
+// 			max_position = count;
+// 		}
+// 		head = head->next;
+// 		count++;
+// 	}
+// 	return (max_position);
+// }
+int find_min_position(t_list *head)
 {
 	int min_value = head->value;
 	int min_position = 1;
@@ -52,6 +70,27 @@ static int find_min_position(t_list *head)
 	}
 	return (min_position);
 }
+// int rev_find_min_position(t_list *head)
+// {
+// 	t_list *bottom;
+// 	bottom = ft_lstlast(head); 
+// 	int min_value = bottom->value; 
+// 	int min_position = 1;
+// 	int count = 1;
+	
+// 	while (bottom) //?
+// 	{
+// 		if (bottom->value < min_value)
+// 		{
+// 			min_value = bottom->value;
+// 			min_position = count;
+// 		}
+// 		bottom = bottom->prev;
+// 		count++;
+// 	}
+// 	return (min_position);
+// }
+
 void sort_3(t_list **head)
 {
 	int min_position;
@@ -134,51 +173,52 @@ void sort_5(t_list **head_a, t_list **head_b)
 	sort_4(head_a, head_b);
 	pa(head_a, head_b);
 }
-void ft_push_swap(t_list **head_a, t_list **head_b)
-{
-	int min_position;
-	int i;
-	long size;
+// void ft_push_swap(t_list **head_a, t_list **head_b)
+// {
+// 	int min_position;
+// 	int i;
+// 	long size;
 
-	size = ft_lstsize(*head_a);
-	while(size > 0)
-	{
-		min_position = find_min_position(*head_a); //busco el numero mas chico y su position
-		if (min_position <= (size/2 + 1)) //si minimo esta en la primera mitad
-		{
-			i = 1;
-			while(i < min_position)
-			{
-				ra(head_a);
-				i++;
-			}
-		}
-		else //si minimo esta en la segunda mitad
-		{
-			i = ft_lstsize(*head_a);
-			while(i >= min_position && i <= size)
-			{
-				rra(head_a); 
-				i--;
-			}
-		}
-		pb(head_a, head_b); 
-		size--; 
-	}
-	while(ft_lstsize(*head_b) > 0)  //devolver todo a A
-		pa(head_a, head_b);
-}
+// 	size = ft_lstsize(*head_a);
+// 	while(size > 0)
+// 	{
+// 		min_position = find_min_position(*head_a); //busco el numero mas chico y su position
+// 		if (min_position <= (size/2 + 1)) //si minimo esta en la primera mitad
+// 		{
+// 			i = 1;
+// 			while(i < min_position)
+// 			{
+// 				ra(head_a);
+// 				i++;
+// 			}
+// 		}
+// 		else //si minimo esta en la segunda mitad
+// 		{
+// 			i = ft_lstsize(*head_a);
+// 			while(i >= min_position && i <= size)
+// 			{
+// 				rra(head_a); 
+// 				i--;
+// 			}
+// 		}
+// 		pb(head_a, head_b); 
+// 		size--; 
+// 	}
+// 	while(ft_lstsize(*head_b) > 0)  //devolver todo a A
+// 		pa(head_a, head_b);
+// }
+
 static void	ft_sort(t_list **stack_a, t_list **stack_b)
 {//puedo ponerle static int y solo return???
 	long size;
 
 	size = ft_lstsize(*stack_a);
-	if(size == 1)
-	{
-		ft_printf("only one element\n");//borrar
-		return;
-	}
-	else if(size == 2)
+	// if(size == 1)
+	// {
+	// 	ft_printf("only one element\n");//borrar
+	// 	return;
+	// }
+	if(size == 2)
 		sa(stack_a);
 	else if(size == 3)
 		sort_3(stack_a);
@@ -186,8 +226,10 @@ static void	ft_sort(t_list **stack_a, t_list **stack_b)
 		sort_4(stack_a, stack_b);
 	else if(size == 5)
 		sort_5(stack_a, stack_b);
-	else 
-		ft_push_swap(stack_a, stack_b);
+	else if(size <= 100) 
+		ft_big_sort(stack_a, stack_b);
+	else
+		sort_500(stack_a, stack_b);
 }
 
 static void	init_stack(t_list **stack, int argc, char **argv)
@@ -211,6 +253,8 @@ static void	init_stack(t_list **stack, int argc, char **argv)
 		ft_lstadd_back(stack, new);
 		i++;
 	}
+	
+	index_stack(stack); //ver
 	
 	if (argc == 2) //si arc = 2 entonces usamos split. split usa malloc y tengo que liberar la memoria. ya no me sirve args porque cree el stack
 	{
@@ -245,7 +289,7 @@ int main(int argc, char **argv)
 	*stack_b = NULL;
 		
 	ft_sort(stack_a, stack_b);
-	free_stack(stack_a); 
+	free_stack(stack_a); //aca hay problemas
 	free_stack(stack_b); 	
 	return (0);
 }

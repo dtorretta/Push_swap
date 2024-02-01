@@ -6,7 +6,7 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 15:38:18 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/01/24 15:33:08 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:29:27 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_list	*ft_lstnew(int value)
 	new -> value = value;
 	new -> prev = NULL;
 	new -> next = NULL;
+	new -> index = -1;
 	return (new);
 }
 /*
