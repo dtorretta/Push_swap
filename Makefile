@@ -3,7 +3,7 @@ NAME = pushswap.a
 LIBFT	= libft.a
 LIBFTDIR	= ./libft
 
-SRCS = push_swap.c ft_swap.c ft_rotate.c ft_rrotate.c ft_push.c errors.c big_sort.c
+SRCS = push_swap.c ft_swap.c ft_rotate.c ft_rrotate.c ft_push.c checks.c big_sort.c position_finder.c index.c small_sort.c free.c
 OBJS = $(SRCS:.c=.o)
 
 INCS = -I push_swap.h
