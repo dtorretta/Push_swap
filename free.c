@@ -6,11 +6,18 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:50:39 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/02/01 19:51:06 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:16:23 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	error(char *msg)
+{
+	(void)msg;
+	write(2, "Error\n", 6);
+	exit(EXIT_FAILURE);
+}
 
 void	free_stack(t_list **stack)
 {
@@ -26,6 +33,7 @@ void	free_stack(t_list **stack)
 	}
 	*stack = NULL; //free(stack);
 }
+
 void	free_string(char **str)
 {
 	int	i;
