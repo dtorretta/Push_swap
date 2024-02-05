@@ -1,4 +1,4 @@
-NAME = pushswap.a
+NAME = push_swap
 
 LIBFT	= libft.a
 LIBFTDIR	= ./libft
