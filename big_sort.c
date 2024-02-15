@@ -6,12 +6,37 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:22:39 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/02/05 20:04:57 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:45:50 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/*searchs the position of the biggest index*/
+static int	find_max_position(t_list *head)
+{
+	int	max_index;
+	int	max_position;
+	int	count;
+
+	max_index = -1;
+	max_position = 1;
+	count = 1;
+	while (head != NULL)
+	{
+		if (head->index > max_index)
+		{
+			max_index = head->index;
+			max_position = count;
+		}
+		head = head->next;
+		count++;
+	}
+	return (max_position);
+}
+
+/*when all nodes are in stack B, this function looks for the biggest index
+and push it one by one to Stak A*/
 static void	sortb(t_list **head_a, t_list **head_b)
 {
 	int		max_position;
@@ -36,6 +61,10 @@ static void	sortb(t_list **head_a, t_list **head_b)
 	}
 }
 
+/*This function takes the first element of stack A. If it is not within the
+specified interval, it reverses the stack. Otherwise, it pushes the node 
+to stack B. In stack B, it considers whether the index is smaller than half of
+the interval. In that case, it reverses the stack to leave it at the bottom*/
 void	bigsort(t_list **head_a, t_list **head_b)
 {
 	int	interval_size;

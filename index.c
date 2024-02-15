@@ -6,21 +6,21 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:28:49 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/02/05 19:54:03 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:28:54 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//busca el siguiente minimo sin index.
+/*searchs the whole list for the min value without index*/
 t_list	*get_min(t_list **head)
 {
 	t_list	*current;
 	t_list	*min;
-	int		has_min; //???
+	int		has_min;
 
 	min = NULL;
-	has_min = 0; //??
+	has_min = 0;
 	current = *head;
 	if (current)
 	{
@@ -38,6 +38,8 @@ t_list	*get_min(t_list **head)
 	return (min);
 }
 
+/*asigned an index, starting from 0, to each node of the list.
+It looks for the the min value one by one*/
 void	index_stack(t_list **head)
 {
 	t_list	*current;
@@ -51,9 +53,10 @@ void	index_stack(t_list **head)
 		current = get_min(head); 
 	}
 }
-//si arc = 2 usamos split. split usa malloc y tengo que liberar la memoria.
-// ya no me sirve args porque cree el stack
 
+/*First check if the arguments are a string. if so, use split
+Second it creates a new node for each value an asigned to a linked list
+Third calls the function index_stackt*/
 void	init_stack(t_list **stack, int argc, char **argv)
 {
 	char	**args;

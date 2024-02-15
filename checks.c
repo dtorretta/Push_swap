@@ -6,33 +6,11 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:32:14 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/02/05 20:19:43 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:30:13 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	is_sorted(t_list **stack)
-{
-	t_list	*temp;
-
-	temp = *stack;
-	while (temp && temp->next)
-	{
-		if (temp->value > temp->next->value)
-			return (0);
-		else
-		{
-			temp = temp->next;
-			if (!temp->next)
-			{
-				free_stack(stack); //*deberia liberar stack b?
-				break ;
-			}
-		}
-	}
-	return (1);
-}
 
 static int	is_num(char *num)
 {
@@ -68,6 +46,28 @@ static int	duplicates(int num, char **argv, int i)
 	return (1);
 }
 
+static void	errors(int argc, char **args, int i, long temp)
+{
+	if (!is_num(args[i]) || !duplicates(temp, args, i) || temp < INT_MIN
+		|| temp > INT_MAX)
+	{
+		if (argc == 2)
+			free_string(args);
+		error("Error");
+	}
+}
+
+void	ft_one_number(char **args)
+{
+	long	temp;
+
+	if (!args[1])
+	{
+		free_string(args);
+		exit (EXIT_SUCCESS);
+	}
+}
+
 int	check(int argc, char **argv, int i)
 {
 	char	**args;
@@ -83,12 +83,11 @@ int	check(int argc, char **argv, int i)
 		args = argv;
 		i = 1;
 	}
+	ft_one_number(args);
 	while (args[i])
 	{
 		temp = ft_atoi(args[i]);
-		if (!is_num(args[i]) || !duplicates(temp, args, i) || temp < INT_MIN
-			|| temp > INT_MAX)
-			error("Error"); //no deberia liberar la memoria de los stack antes de esto?
+		errors(argc, args, i, temp);
 		i++;
 	}
 	if (argc == 2)

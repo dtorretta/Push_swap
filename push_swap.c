@@ -6,7 +6,7 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:37:00 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/02/05 20:21:18 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:37:36 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	if (!check(argc, argv, i))
-		return (EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 	stack_a = (t_list **)malloc(sizeof(t_list));
 	if (!stack_a)
-		return (EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 	*stack_a = NULL;
 	init_stack(stack_a, argc, argv);
 	if (is_sorted(stack_a))
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	if (!stack_b)
 	{
 		free_stack(stack_a); 
-		exit (EXIT_FAILURE); //?
+		exit (EXIT_FAILURE);
 	}
 	*stack_b = NULL;
 	ft_sort(stack_a, stack_b);

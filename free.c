@@ -6,12 +6,38 @@
 /*   By: dtorrett <dtorrett@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:50:39 by dtorrett          #+#    #+#             */
-/*   Updated: 2024/02/05 20:16:23 by dtorrett         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:36:53 by dtorrett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/* This function only free stack A. is not necessary to free stack B as 
+this function is always called before its creation*/
+int	is_sorted(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp && temp->next)
+	{
+		if (temp->value > temp->next->value)
+			return (0);
+		else
+		{
+			temp = temp->next;
+			if (!temp->next)
+			{
+				free_stack(stack);
+				break ;
+			}
+		}
+	}
+	return (1);
+}
+
+/* file descriptor 2 is typically associated with the standard error output
+(stderr) instead of standard output (stdout) 1*/
 void	error(char *msg)
 {
 	(void)msg;
@@ -31,7 +57,7 @@ void	free_stack(t_list **stack)
 		head = head->next;
 		free(tmp);
 	}
-	*stack = NULL; //free(stack);
+	free (stack);
 }
 
 void	free_string(char **str)
