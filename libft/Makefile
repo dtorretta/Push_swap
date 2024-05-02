@@ -17,6 +17,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 all: ${NAME}
 
+
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCS}
 
